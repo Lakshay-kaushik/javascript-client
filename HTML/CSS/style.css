@@ -8,7 +8,7 @@
     border: 0.5px solid gray;
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
+    flex-direction: row ;
 }
 
 .flex-item {
