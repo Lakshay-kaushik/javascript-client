@@ -33,3 +33,12 @@
 .background {
     background-color: rgb(216, 206, 206);
 }
+ul.breadcrumb li {
+    display: inline;
+    font-size: 15px;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  } 
