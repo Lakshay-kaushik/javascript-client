@@ -1,0 +1,44 @@
+.main {
+    border: 0.5px solid gray;
+    margin: 50px;
+    box-shadow: 5px 10px 18px gray;
+}
+
+.flex-container {
+    border: 0.5px solid gray;
+    display: flex;
+    flex-wrap: nowrap ;
+    flex-direction: row;
+}
+
+.flex-item {
+    padding-left: 10px;
+    text-align: left;
+    line-height: 75px;
+    font-size: 20px;
+}
+
+.grow1 {
+    flex-grow: 1;
+}
+
+.grow2 {
+    flex-grow: 6;
+}
+
+.close {
+    padding: 25px;
+}
+
+.background {
+    background-color: rgb(216, 206, 206);
+}
+ul.breadcrumb li {
+    display: inline;
+    font-size: 15px;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  } 
