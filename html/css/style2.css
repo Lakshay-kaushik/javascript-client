@@ -101,6 +101,14 @@ body {
   .co_imgWallet:hover {
     box-shadow: 0 0 0 10px lightgray;
   }
+  .co_hover {
+    margin-left: 20px;;
+  }
+
+  .co_hover:hover {
+    box-shadow: 0 0 0 7px lightgray;
+    background-color: lightgray;
+  }
   .co_card {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     max-width: 300px;
