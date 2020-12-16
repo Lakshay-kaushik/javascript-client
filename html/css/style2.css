@@ -1,13 +1,12 @@
 body {
-  background-image: url('/html/images/background.jpg');
+  background-image: url('../images/background.jpg');
   border: transparent solid 1px;
 }
 img {
-  width: 29%;
-  margin: 1px;
+  width: 70%;
 }
 
-.co_container {
+.co-container {
   display: flex;
   flex-direction: column;
   background-color:grey;
@@ -15,7 +14,7 @@ img {
   margin: 10%;
   box-shadow: 10px 5px 5px gray;
 }
-.co_checkout--container1 {
+.co-checkout--container1 {
   flex: 1;
   border: 1px;
   margin: 1px;
@@ -23,80 +22,79 @@ img {
   line-height: 30px;
   background-color:white;
 }
-.co_item--checkout {
+.co-item--checkout {
   flex: 1;
   display: flex;
-  margin: 1px;
+  margin-top: 16px;
   margin-right: 0.2%;
   justify-content: space-between;
 }
-.co_checkout1 {
-
+.co-checkout1 {
   display: inline;
   flex:5;
 }
-ul.co_breadcrumb li {
+ul.co-breadcrumb li {
   display: inline;
   font-size: 15px;
 }
-ul.co_breadcrumb li+li:before {
+ul.co-breadcrumb li+li:before {
   padding: 8px;
   color: black;
   content: "/\00a0";
 }
-.co_close {
+.co-close {
   padding: 20px;
 }
-.co_payment--container2 {
+.co-payment--container2 {
   flex: 1;
   display: flex;
   padding: 1px;
   margin: 1px;
   background-color: white;
 }
-.co_flex--payment {
+.co-flex--payment {
   display: flex;
   flex: 4;
-  height: 100%;
   flex-direction: column;
   background-color:white;
 }
 
-.co_wallet{
+.co-wallet{
   padding-top: 2%;
   flex: 1;
   height: 40%;
 }
-
-.co_flex--img {
-  margin-left: 1%;
-  margin-right: -5%;
-  margin-top: 5%;
-}
-.co_img--wallet {
-  border: 1px solid grey;
-  border-radius: 4px;
-  padding: 1px;
-  
+.co-hover{
+  display: inline-block;
+  margin: 20px;
 }
 
-.co_img--wallet:hover {
+.co-hover:hover {
+  box-shadow: 0 0 0 7px lightgray;
+  background-color: lightgray;
+}
+.co-flex--img {
+  display: inline-flex;
+  margin-top: 20px;
+}
+.co-img--wallet:hover {
   opacity: .5;
 }
-.co_caption {
-  margin-top: 0px;
-  margin-left: 20%;
-  text-align: left;
+.co-img--wallet {
+  margin-left: 25px;
+}
+.co-caption {
   font-size: small;
+  margin-left: 25px;
 }
   
-.co_newCard{
+.co-newCard{
   max-width: 350px;
   margin: 10px;
   margin-top: 5%;
   margin-left: 25%;
   margin-right: 15%;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
   height: 10%;
   text-align: center;
 }
@@ -130,7 +128,7 @@ size: 90px;
 border: 1px gray;
 color: white;
 }
-.co_cartbackground {
+.co-cartbackground {
   display: flex;
   flex:2;
   flex-grow: 1;
@@ -140,39 +138,39 @@ color: white;
 }
 
 
-.co_first {
+.co-first {
 margin-left: 2%;
 margin-top: 2%;
 flex: auto;
 height: 0%;
 }
-.co_item {
+.co-item {
   display: flex;
   flex-direction: row;
   flex: 2;
-  }
-  .co_product {
+}
+  .co-product {
     flex: 1;
     }
-  .co_item--image {
+  .co-item--image {
   margin-top: 2px;
   border: 5px solid grey;
   width: 50px;
   height: 50px;
   }
-.co_amt {
+.co-amount {
   flex: 6;
   margin:0%;
   margin-left: 2%;
   font-size: medium;
   }
   
-div.co_amt {
+.co-amount {
   margin-top: 0%;
-text-align: justify;
+  text-align: justify;
 }
 
-.co_buy {
+.co-product {
 margin: 0%;
 margin-left: 1%;
 flex: 1;
@@ -180,7 +178,7 @@ text-align: left;
 font-size: 14px;
 }
 
-.co_price {
+.co-price {
 flex: 1;
 margin: 0%;
 position: relative;
@@ -188,13 +186,13 @@ margin-right: 2%;
 font-size: 12px;
 text-align: right;
 }
-.co_second {
+.footerpart {
   margin-top: 15%;
   margin-left: 2%;
   margin-bottom: 3%;
   flex: auto;
   }
-summary.co_buy {
+summary.co-product {
   margin-left: 1%;
   flex: 1;
   text-align: left;
@@ -203,22 +201,22 @@ summary.co_buy {
 
 @media screen and (min-width:992px)
 {
-  .co_container{
+  .co-container{
     margin-left: 100px;
     margin-right: 100px;
   }
-  .co_payment--container2{
+  .co-payment--container2{
     flex: 3;
 
   }
-  .co_cartbackground{
+  .co-cartbackground{
     display: flex;
     flex: 2;
   }
 }
 @media screen and (max-width:992px)
 {
-.co_container{
+.co-container{
   margin-right: 20px;
   margin-left: 20px;
 }
@@ -226,45 +224,45 @@ summary.co_buy {
 
 @media screen and (min-width:768px) and (max-width:992px)
 {
-.co_payment--container2{
+.co-payment--container2{
   flex: 1;
 }
-.co_cartbackground{
+.co-cartbackground{
   flex: 2;
 }
 }
 @media screen and (max-width:600px){
-.co_payment--container2{
+.co-payment--container2{
 flex-direction: column-reverse;
 }
-.co_cartbackground{
+.co-cartbackground{
 width: 100%;
 }
-.co_flex--payment{
+.co-flex--payment{
 width: 100%;
 }
 
 }
 @media screen and (max-width:768px) 
 {
-.co_checkout1{
+.co-checkout1{
 display: none;
 }
-.co_flex--payment{
+.co-flex--payment{
 width: 100%;
 }
-.co_cartbackground{
+.co-cartbackground{
 width: 100%;
 }
 }
 @media screen and (max-width:400px)
 {
-.co_flex--img{
+.co-flex--img{
   display: flex;
   flex-direction: column;
 }
 img {
-  width: 78%;
+  width: 18%;
   margin: 25px;
   }
 }
