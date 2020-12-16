@@ -133,7 +133,7 @@ color: white;
   flex:2;
   flex-grow: 1;
   position: relative;
-  background-color: rgb(252, 252, 252);
+  background-color: lightgrey;
   width: 40%;
 }
 
