@@ -25,7 +25,8 @@ img {
 .co-item--checkout {
   flex: 1;
   display: flex;
-  margin-top: 16px;
+  margin-top: 15px;
+  margin-left: 10px;;
   margin-right: 0.2%;
   justify-content: space-between;
 }
@@ -54,9 +55,13 @@ ul.co-breadcrumb li+li:before {
 }
 .co-flex--payment {
   display: flex;
-  flex: 4;
+  flex: 3;
   flex-direction: column;
   background-color:white;
+}
+
+#mywallet{
+  margin-left: 10px;
 }
 
 .co-wallet{
@@ -66,7 +71,7 @@ ul.co-breadcrumb li+li:before {
 }
 .co-hover{
   display: inline-block;
-  margin: 20px;
+  margin: 10px;
 }
 
 .co-hover:hover {
@@ -81,13 +86,18 @@ ul.co-breadcrumb li+li:before {
   opacity: .5;
 }
 .co-img--wallet {
-  margin-left: 25px;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 .co-caption {
   font-size: small;
   margin-left: 25px;
 }
-  
+
+.co-newcard-p p {
+  margin-left: 10px;
+}
+
 .co-newCard{
   max-width: 350px;
   margin: 10px;
