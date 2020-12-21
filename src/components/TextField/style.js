@@ -9,12 +9,12 @@ const Div = styled.div`
 const Input = styled.input`
     width:98%;
     padding: 10px;
-    ${(props) => props.value === '101'
+    ${(props) => props.error
         && css`
         border: 1px solid red;
         color: black;
         `};
-    ${(props) => props.value === 'Accessible'
+    ${(props) => (props.value && !props.disabled && !props.error)
     && css`
     border: 1px solid orange;
     color : black;

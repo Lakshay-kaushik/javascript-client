@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
-    "commitizen": "^4.2.2",
     "editorconfig": "^0.15.3",
     "linting": "^1.0.0",
     "prop-types": "^15.7.2",
@@ -46,6 +45,7 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
-    "husky": "^4.3.6"
-  }
+    "husky": "^4.3.6",
+    "commitizen": "^4.2.2"
+    }
 }
