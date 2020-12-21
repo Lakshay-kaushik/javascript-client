@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 
 const Div = styled.div`
     padding: 10px;
-    border: 1px solid black;
-    width: 71%;
+    // border: 1px solid black;
+    width: 99%;
     `;
 
 const Input = styled.input`

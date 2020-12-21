@@ -9,6 +9,7 @@
     "commitizen": "^4.2.2",
     "editorconfig": "^0.15.3",
     "linting": "^1.0.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
