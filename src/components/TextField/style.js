@@ -11,7 +11,7 @@ const Input = styled.input`
     padding: 10px;
     ${(props) => props.error
         && css`
-        border: 1px solid red;
+        border: 1px solid black;
         color: black;
         `};
     ${(props) => (props.value && !props.disabled && !props.error)
