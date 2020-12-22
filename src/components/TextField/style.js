@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 
 const Div = styled.div`
     padding: 10px;
-    border: 1px solid black;
-    width: 71%;
+    // border: 1px solid black;
+    width: 99%;
     `;
 
 const Input = styled.input`
@@ -11,7 +11,7 @@ const Input = styled.input`
     padding: 10px;
     ${(props) => props.error
         && css`
-        border: 1px solid red;
+        border: 1px solid black;
         color: black;
         `};
     ${(props) => (props.value && !props.disabled && !props.error)
