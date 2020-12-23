@@ -1,7 +1,12 @@
 import styled, { css } from 'styled-components';
 
 const Div = styled.div`2%;`;
-
+const Text = styled.div`
+width: 100%;
+font-size: 18px;
+font-weight: bold;
+color: solid darkgray;
+`;
 const Error = styled.p`color: red;`;
 
 const Input = styled.input`
@@ -27,12 +32,7 @@ border: 1px solid orange;
 color: black;
 `};
 }`;
-const Text = styled.div`
-width: 100%;
-font-size: 18px;
-font-weight: bold;
-color: solid darkgray;
-`;
+
 export {
   Div, Error, Input, Text,
 };
