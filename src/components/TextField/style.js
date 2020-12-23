@@ -4,7 +4,6 @@ const Div = styled.div`2%;`;
 
 const Error = styled.p`color: red;`;
 
-// eslint-disable-next-line no-unused-vars
 const Text = styled.div`
 width: 100%;
 font-size: 18px;
