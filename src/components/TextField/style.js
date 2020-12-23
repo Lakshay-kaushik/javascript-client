@@ -20,8 +20,8 @@ border-radius: 5px;
 color: solid darkgray;
 ${(props) => props.error
 && css`
-border: 1px solid red;
-color: red;
+border: 1px solid black;
+color: black;
 `};
 }
 ${(props) => props.onChange
