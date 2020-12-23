@@ -4,13 +4,6 @@ const Div = styled.div`2%;`;
 
 const Error = styled.p`color: red;`;
 
-const Text = styled.div`
-width: 100%;
-font-size: 18px;
-font-weight: bold;
-color: solid darkgray;
-`;
-
 const Input = styled.input`
 width: 94%;
 padding: 10px 15px;
@@ -34,7 +27,12 @@ border: 1px solid orange;
 color: black;
 `};
 }`;
-
+const Text = styled.div`
+width: 100%;
+font-size: 18px;
+font-weight: bold;
+color: solid darkgray;
+`;
 export {
   Div, Error, Input, Text,
 };
