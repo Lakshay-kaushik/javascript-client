@@ -11,24 +11,6 @@ font-weight: bold;
 color: solid darkgray;
 
 const Input = styled.input`
-    width:98%;
-    padding: 10px;
-    border: 1px solid orange;
-    border-radius: 5px;
-    color: solid darkgray;
-    ${(props) => props.error
-        && css`
-        border: 1px solid black;
-        color: black;
-        `};
-    ${(props) => (props.value && !props.disabled && !props.error)
-    && css`
-    border: 1px solid orange;
-    color : black;
-    `}
-
-`;
-const Input = styled.input`
 width: 94%;
 padding: 10px 15px;
 border: 1px solid orange;
