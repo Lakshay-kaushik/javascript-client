@@ -30,7 +30,7 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 Button.defaultProps = {
-  color: 'default' || 'primary',
+  color: 'default',
   disabled: false,
   style: {},
 };
