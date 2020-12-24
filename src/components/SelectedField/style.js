@@ -18,5 +18,7 @@ option {
   padding: 0px 2px 1px;
 }
 `;
-
-export default Select;
+const Err = styled.p`
+color: red;
+`;
+export { Select, Err };

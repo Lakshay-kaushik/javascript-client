@@ -1,2 +1,1 @@
-import SelectField from './SelectedField';
-export default SelectField;
+export { default as SelectField } from './SelectedField';

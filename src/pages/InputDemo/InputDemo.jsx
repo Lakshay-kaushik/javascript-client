@@ -1,12 +1,25 @@
 /* eslint-disable*/
 import React from 'react';
-import { TextField } from '../../components';
+import * as yup from 'yup';
+import { TextField, SelectField, RadioGroup, ButtonField,
+} from '../../components';
 import {Text}  from '../../components/TextField/style';
-import SelectField from '../../components/SelectedField';
-import RadioGroup from '../../components/RadioGroup/index';
 import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../config/constant';
 
 class InputDemo extends React.Component {
+  schema = yup.object().shape({
+    name: yup.string().required('Please Enter your Name').min(3, 'Please enter no less than 3 characters'),
+    sport: yup.string().required('Sport is required field '),
+    cricket: yup.string().when('sport', {
+      is: 'cricket',
+      then: yup.string().required('What you do is a required field'),
+    }),
+    football: yup.string().when('sport', {
+      is: 'football',
+      then: yup.string().required('What you do is a required field'),
+    }),
+  });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +27,23 @@ class InputDemo extends React.Component {
       sport: '',
       cricket: '',
       football: '',
+      touched: {
+        name: false,
+        sport: false,
+        cricket: false,
+        football: false,
+      },
     };
-    console.log(this.state);
   }
 
+ handleBlur = (field) => () => {
+   const { touched } = this.state;
+   touched[field] = true;
+
+   this.setState({
+     touched,
+   }, () => this.getError());
+  }
   handleNameChange = (e) => {
     this.setState({ name: e.target.value }, () => {
       console.log(this.state);
@@ -49,16 +75,50 @@ class InputDemo extends React.Component {
     return (radioValue);
   };
 
+  getError = (field) => {
+    const { touched } = this.state;
+
+    if (touched[field] && this.hasErrors()) {
+      try {
+        this.schema.validateSyncAt(field, this.state);
+      } catch (err) {
+        return err.message;
+      }
+    }
+    return true;
+  };
+
+  hasErrors = () => {
+    console.log('inside Haserr', this.state);
+    try {
+      this.schema.validateSync(this.state);
+    } catch (err) {
+      return true;
+    }
+    return false;
+  }
+
+  isTouched = (field) => {
+    const { touched } = this.state;
+    this.setState({
+      touched: {
+        ...touched, [field]: true,
+      },
+    });
+  }
+
   render() {
     const { sport } = this.state;
+    console.log('hasErr', this.hasErrors());
     return (
       <>
         <div>
           <Text><p>Name</p></Text>
           <TextField
             value=""
-            error=""
+            error={this.getError('name')}
             onChange={this.handleNameChange}
+            onBlur={() => this.isTouched('name')}
           />
           <Text>
             <p>Select the game you play?</p>
@@ -67,6 +127,8 @@ class InputDemo extends React.Component {
             defaultOptions="Select"
             onChange={this.handleSportChange}
             options={selectOptions}
+            error={this.getError('sport')}
+            onBlur={() => this.isTouched('sport')}
           />
           <div>
             {
@@ -76,10 +138,16 @@ class InputDemo extends React.Component {
                   <RadioGroup
                     options={this.RadioOption()}
                     onChange={this.handlePositionChange}
+                    error={this.getError(sport)}
+                    onBlur={() => this.isTouched(sport)}
                   />
                 </>
               )
             }
+          </div>
+          <div align="right">
+            <ButtonField value="Cancel" onClick />
+            <ButtonField value="Submit" disabled={this.hasErrors()} onClick />
           </div>
         </div>
       </>
