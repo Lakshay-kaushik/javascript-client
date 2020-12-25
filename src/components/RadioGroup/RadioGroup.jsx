@@ -1,6 +1,8 @@
+/* eslint react/prop-types: 0 */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Input,Err } from './style';
+import { Input, Err } from './style';
+
 const RadioGroup = (props) => {
   const {
     options, error, onChange, onBlur,
@@ -11,7 +13,7 @@ const RadioGroup = (props) => {
       {
         options && options.length && options.map(({ value, label }) => (
           <Fragment key={label}>
-            <Input type="radio" name="game" value={value} onChange={(event) => onChange(event)} onBlur={onBlur} error={error}  />
+            <Input type="radio" name="game" value={value} onChange={(event) => onChange(event)} onBlur={onBlur} error={error} />
             {label}
             <br />
           </Fragment>
@@ -29,6 +31,6 @@ RadioGroup.propTypes = {
 };
 RadioGroup.defaultProps = {
   error: '',
-  options: [],
+  onBlur: '',
 };
 export default RadioGroup;

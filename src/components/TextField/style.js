@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 const Div = styled.div`2%;`;
 
-
 const Error = styled.p`color: red;`;
 
 const Text = styled.div`

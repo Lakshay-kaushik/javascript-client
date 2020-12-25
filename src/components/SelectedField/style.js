@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import {Err} from '../RadioGroup/style'
+import { Err } from '../RadioGroup/style';
+
 const Select = styled.select`
 width: 97%;
 padding: 10px 15px;
@@ -18,5 +19,5 @@ option {
   padding: 0px 2px 1px;
 }
 `;
-document.getElementById(Err)
+document.getElementById(Err);
 export { Select, Err };

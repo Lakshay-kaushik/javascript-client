@@ -2,24 +2,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable no-undef */
+/* eslint react/prop-types: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, Error } from './style';
+
 const TextField = (props) => {
   const {
-     value, error, onChange, onBlur,
+    value, error, onChange, onBlur,
   } = props;
   if (Error) {
     return (
       <>
-        <Input type="text" onChange={onChange} onBlur={onBlur}  />
+        <Input type="text" onChange={onChange} onBlur={onBlur} />
         <br />
         <Error>{ error }</Error>
       </>
     );
   }
   return (
-    <Input type="text"  onChange={onChange} onBlur={onBlur} />
+    <Input type="text" onChange={onChange} onBlur={onBlur} />
   );
 };
 TextField.propTypes = {
@@ -29,8 +31,7 @@ TextField.propTypes = {
   onBlur: PropTypes.string,
 };
 TextField.defaultProps = {
-  disabled: false,
-  error: '',
   onChange: '',
+  onBlur: '',
 };
 export default TextField;
