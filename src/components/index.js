@@ -3,3 +3,4 @@ export  {Slider} from './Slider'
 export { RadioGroup } from './RadioGroup';
 export { SelectField } from './SelectedField';
 export { ButtonField } from './Button';
+export { Math } from './Math';
