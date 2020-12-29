@@ -6,11 +6,9 @@ import theme from './theme';
 
 function App() {
   return (
-    <>
-      <ThemeProvider theme={theme} />
+    <ThemeProvider theme={theme}>
       <ChildrenDemo />
-      <ThemeProvider />
-    </>
+    </ThemeProvider>
   );
 }
 
