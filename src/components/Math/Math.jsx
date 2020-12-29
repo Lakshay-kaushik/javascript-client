@@ -20,7 +20,7 @@ const Math = (props) => {
     break;
   }
   if (children) {
-    return children(first, second, result);
+    return children(first, second, result, operator);
   }
 
   return (
