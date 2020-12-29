@@ -7,8 +7,9 @@ import theme from './theme';
 function App() {
   return (
     <>
-      <ChildrenDemo />
       <ThemeProvider theme={theme} />
+      <ChildrenDemo />
+      <ThemeProvider />
     </>
   );
 }
