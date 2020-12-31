@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Dialog, DialogTitle, DialogContent, DialogContentText,
+  Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, InputAdornment,
 } from '@material-ui/core';
 import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
-import schema from './DialogSchema';
-import Handler from './CommonTextField';
+import * as yup from 'yup';
 
 const passwordStyle = () => ({
   passfield: {
@@ -38,6 +37,16 @@ const config = [{
   icon: VisibilityOff,
 },
 ];
+
+const schema = yup.object().shape({
+  name: yup.string().trim().required('Name is a required field').min(3),
+  email: yup.string()
+    .trim().email().required('Email is a required field'),
+  password: yup.string()
+    .required('Password is required')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, 'Must contain 8 characters, at least one uppercase letter, one lowercase letter and one number'),
+  confirmPassword: yup.string().required('Confirm Password is required').oneOf([yup.ref('password'), null], 'Must match password'),
+});
 
 class AddDialog extends React.Component {
   constructor(props) {
@@ -106,17 +115,29 @@ class AddDialog extends React.Component {
     const { name, email, password } = this.state;
     const ans = [];
     config.forEach((value) => {
-      ans.push(<Handler
-        label={value.label}
-        onChange={this.handleChange(value.key)}
-        onBlur={() => this.isTouched(value.key)}
-        helperText={this.getError(value.key)}
-        error={!!this.getError(value.key)}
-        icons={value.icon}
-        type={this.passwordType(value.key)}
-      />);
-    });
+      ans.push(
+        <TextField
+          label={value.label}
+          onChange={this.handleChange(value.key)}
+          required
+          onBlur={() => this.isTouched(value.key)}
+          helperText={this.getError(value.key)}
+          error={!!this.getError(value.key)}
+          id="outlined-required"
+          variant="outlined"
+          fullWidth
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <value.icon />
+              </InputAdornment>
+            ),
+          }}
+          type={this.passwordType(value.key)}
+        />,
 
+      );
+    });
     return (
       <>
         <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
@@ -160,4 +181,20 @@ AddDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
+TextField.propTypes = {
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  icons: PropTypes.instanceOf(Object),
+};
+TextField.defaultProps = {
+  error: false,
+  helperText: '',
+  label: '',
+  type: false,
+  icons: {},
 };
