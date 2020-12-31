@@ -6,7 +6,7 @@ import {
 import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import schema from './DialogSchema';
-import Handler from './CommonTextField';
+import CommonTextField from './CommonTextField';
 
 const passwordStyle = () => ({
   passfield: {
@@ -106,7 +106,7 @@ class AddDialog extends React.Component {
     const { name, email, password } = this.state;
     const ans = [];
     config.forEach((value) => {
-      ans.push(<Handler
+      ans.push(<CommonTextField
         label={value.label}
         onChange={this.handleChange(value.key)}
         onBlur={() => this.isTouched(value.key)}
