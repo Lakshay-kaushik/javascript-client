@@ -6,6 +6,7 @@ import {
   CardContent, withStyles, InputAdornment, Button,
 } from '@material-ui/core';
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
+import { Footer } from '../../layouts/components/Footer';
 
 const Design = (theme) => ({
   icon: {
@@ -17,6 +18,11 @@ const Design = (theme) => ({
     width: 400,
     marginTop: theme.spacing(20),
     marginLeft: theme.spacing(58),
+    [theme.breakpoints.up(400 + theme.spacing(3) * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
 });
 class Login extends React.Component {
@@ -139,6 +145,7 @@ render() {
             </form>
           </CardContent>
         </Card>
+        <Footer />
       </div>
     </>
   );
