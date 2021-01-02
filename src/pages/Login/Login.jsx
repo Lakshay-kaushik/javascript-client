@@ -6,7 +6,6 @@ import {
   CardContent, withStyles, InputAdornment, Button,
 } from '@material-ui/core';
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
-import { Footer } from '../../layouts/components/Footer';
 
 const Design = (theme) => ({
   icon: {
@@ -145,7 +144,6 @@ render() {
             </form>
           </CardContent>
         </Card>
-        <Footer />
       </div>
     </>
   );
