@@ -1,13 +1,14 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import Trainee from './pages/Trainee/Trainee';
-
 import theme from './theme';
+import { Login } from './pages/Login';
+import { Navbar } from './pages/components/Navbar';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Trainee />
+      <Navbar />
+      <Login />
     </ThemeProvider>
   );
 }
