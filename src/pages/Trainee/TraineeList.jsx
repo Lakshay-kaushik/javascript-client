@@ -54,7 +54,7 @@ class TraineeList extends React.Component {
               ADD TRAINEELIST
             </Button>
           </div>
-          <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
+          <AddDialog open={open} onClose={this.handleClose} onSubmit={this.handleSubmit} />
           &nbsp;
           &nbsp;
           <TableComponent
