@@ -5,7 +5,6 @@ import { TextField, SelectField, RadioGroup, ButtonField,
 } from '../../components';
 import {Text}  from '../../components/TextField/style';
 import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../config/constant';
-import { Navbar } from '../components/Navbar';
 
 class InputDemo extends React.Component {
   schema = yup.object().shape({
@@ -113,7 +112,6 @@ class InputDemo extends React.Component {
     console.log('hasErr', this.hasErrors());
     return (
       <>
-        <Navbar />
         <div>
           <Text><p>Name</p></Text>
           <TextField
