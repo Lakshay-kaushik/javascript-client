@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { AddDialog } from './components/AddDialog';
 import trainees from './data/trainee';
 import { TableComponent } from '../../components';
-import  getDateFormatted  from '../../libs/utils/getDateFormatted';
+import { getDateFormatted }  from '../../libs/utils/getDateFormatted';
 
 const useStyles = (theme) => ({
   root: {
@@ -37,7 +37,7 @@ class TraineeList extends React.Component {
     this.setState({ open: false });
     return open;
   };
-  
+
   handleSelect = (event, data) => {
     this.setState({ selected: event.target.value }, () => console.log('Data', data));
   };
@@ -54,14 +54,13 @@ class TraineeList extends React.Component {
     this.setState({
       open: false,
     }, () => {
-      // eslint-disable-next-line no-console
       console.log(data);
     });
   }
 
   render() {
-    const { open, order, orderBy} = this.state;
-    const { match: { url }, classes } = this.props;
+    const { open, order, orderBy } = this.state;
+    const { classes } = this.props;
     return (
       <>
         <div className={classes.root}>
@@ -70,7 +69,7 @@ class TraineeList extends React.Component {
               ADD TRAINEELIST
             </Button>
           </div>
-          <AddDialog open={open} onClose={this.handleClose} onSubmit={this.handleSubmit} />
+          <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
           &nbsp;
           &nbsp;
           <TableComponent
@@ -109,5 +108,4 @@ TraineeList.propTypes = {
   match: PropTypes.objectOf(PropTypes.object).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-
 export default withStyles(useStyles)(TraineeList);
