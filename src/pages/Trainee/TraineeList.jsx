@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { AddDialog } from './components/AddDialog';
 import trainees from './data/trainee';
 import { TableComponent } from '../../components';
-import { getDateFormatted } from '../../libs/utils/getDateFormatted';
+import  getDateFormatted  from '../../libs/utils/getDateFormatted';
 
 const useStyles = (theme) => ({
   root: {

@@ -29,7 +29,7 @@ const useStyles = (theme) => ({
 
 function TableComponent(props) {
   const {
-    classes, data, column, order, orderBy, onSort, onSelect,
+    classes, data, column, order, orderBy, onSort,
   } = props;
 
   return (
@@ -38,13 +38,20 @@ function TableComponent(props) {
         <TableHead>
           <TableRow>
             {
-              column.map(({ align, label }) => (
+              column.length && column.map(({
+                align, field, lable,
+              }) => (
                 <TableCell
-                  key={label}
-                  className={classes.header}
                   align={align}
+                  className={classes.tableHeader}
                 >
-                  {label}
+                  <TableSortLabel
+                    active={orderBy === field}
+                    direction={orderBy === field ? order : 'asc'}
+                    onClick={onSort(field)}
+                  >
+                    {lable}
+                  </TableSortLabel>
                 </TableCell>
               ))
             }
@@ -71,7 +78,6 @@ TableComponent.propTypes = {
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
   order: PropTypes.string,
   orderBy: PropTypes.string,
-  onSelect: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
 };
 TableComponent.defaultProps = {
