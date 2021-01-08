@@ -2,18 +2,10 @@
 import React, { Component } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-
-const useStyles = () => ({
-  buttonColor: {
-    backgroundColor: 'red',
-    color: 'white',
-  },
-});
 
 class RemoveDialog extends Component {
   constructor(props) {
@@ -32,7 +24,7 @@ class RemoveDialog extends Component {
 
   render() {
     const {
-      classes, open, onClose, onSubmit, data,
+      open, onClose, onSubmit, data,
     } = this.props;
 
     return (
@@ -50,7 +42,7 @@ class RemoveDialog extends Component {
               Cancel
             </Button>
             <Button
-              className={classes.buttonColor}
+              color="primary"
               variant="contained"
               onClick={() => {
                 onSubmit({ data });
@@ -66,10 +58,9 @@ class RemoveDialog extends Component {
 }
 
 RemoveDialog.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-export default withStyles(useStyles)(RemoveDialog);
+export default RemoveDialog;

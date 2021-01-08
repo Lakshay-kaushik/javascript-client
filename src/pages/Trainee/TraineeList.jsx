@@ -1,18 +1,20 @@
-/* eslint-disable */
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { AddDialog, RemoveDialog, EditDialog } from './components/index';
-import trainees from './data/trainee';
-import { TableComponent } from '../../components';
+import { AddDialog, EditDialog, RemoveDialog } from './components/index';
+import { TableComponent } from '../../components/Table';
 import { getDateFormatted } from '../../libs/utils/getDateFormatted';
+import trainees from './data/trainee';
 
 const useStyles = (theme) => ({
-  root: {
-    margin: theme.spacing(2),
+  traineeButton: {
+    marginRight: theme.spacing(2.5),
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
   dialog: {
     textAlign: 'right',
@@ -23,95 +25,74 @@ class TraineeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isopen: false,
+      Open: false,
       EditOpen: false,
       DeleteOpen: false,
       selected: '',
       orderBy: '',
       order: '',
       page: 0,
-      rowsPerPage:10,
+      rowsPerPage: 10,
       editData: {},
       deleteData: {},
     };
   }
 
-  handleEditButton = (data) => {
-    this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data.data); });
-  }
+    handleEditButton = (data) => {
+      this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data.data); });
+    }
 
-  handleDeleteButton = (data) => {
-    this.setState({ DeleteOpen: false }, () => { console.log('Deleted Item ', data.data); });
-  };
+    handleDeleteButton = (data) => {
+      this.setState({ DeleteOpen: false }, () => { console.log('Deleted Item ', data.data); });
+    };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+    handleClose = () => {
+      this.setState({ Open: false });
+    }
 
-  handleClose = () => {
-    const { open } = this.state;
-    this.setState({ open: false });
-    return open;
-  };
+    handleEditDialogOpen = (data) => {
+      this.setState({ EditOpen: true, editData: data });
+    }
 
-  handleEditButton = (data) => {
-    this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data.data); });
-  }
+    handleSelect = (event, data) => {
+      this.setState({ selected: event.target.value }, () => console.log(data, this.state));
+    };
 
-  handleDeleteButton = (data) => {
-    this.setState({ DeleteOpen: false }, () => { console.log('Deleted Item ', data.data); });
-  };
+    handleRemoveDialogOpen = (data) => {
+      this.setState({ DeleteOpen: true, deleteData: data });
+    }
 
-  handleSelect = (event, data) => {
-    this.setState({ selected: event.target.value }, () => console.log('Data', data));
-  };
+    handleSort = (field) => () => {
+      const { order } = this.state;
+      this.setState({
+        orderBy: field,
+        order: order === 'asc' ? 'desc' : 'asc',
+      });
+    }
 
-  handleSort = (field) => () => {
-    const { order } = this.state;
-    this.setState({
-      orderBy: field,
-      order: order === 'asc' ? 'desc' : 'asc',
-    });
-  }
+    handleChangePage = (event, newPage) => {
+      this.setState({
+        page: newPage,
+      });
+    };
 
-  handleSubmit = (data) => {
-    this.setState({
-      open: false,
-    }, () => {
-      // eslint-disable-next-line no-console
-      console.log(data);
-    });
-  }
-
-handleEditDialogOpen = (data) => {
-    this.setState({ EditOpen: true, editData: data });
-  }
-
-  handleRemoveDialogOpen = (data) => {
-    this.setState({ DeleteOpen: true, deleteData: data });
-  }
-
-  handleChangePage = (event, newPage) => {
-    this.setState({
-      page: newPage,
-    });
-  };
-
-  render() {
-    const { open, order, orderBy, EditOpen,
-    page, rowsPerPage, editData, DeleteOpen,  deleteData,} = this.state;
-    const { match: { url }, classes } = this.props;
-    return (
-      <>
-        <div className={classes.root}>
+    render() {
+      const {
+        EditOpen, Open, order, orderBy, page, rowsPerPage, editData, DeleteOpen, deleteData,
+      } = this.state;
+      const { classes } = this.props;
+      return (
+        <>
           <div className={classes.dialog}>
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+            <Button className={classes.traineeButton} variant="outlined" color="primary" onClick={() => this.setState({ Open: true })}>
               ADD TRAINEELIST
             </Button>
+            <AddDialog
+              onClose={this.handleClose}
+              open={Open}
+              onSubmit={this.handleUser}
+            />
           </div>
-          <AddDialog open={open} onClose={this.handleClose} onSubmit={ this.handleSubmit} />
-          &nbsp;
-          &nbsp;
           <EditDialog
             onClose={this.handleEditButton}
             open={EditOpen}
@@ -127,35 +108,33 @@ handleEditDialogOpen = (data) => {
           <TableComponent
             id="id"
             data={trainees}
-            column={
-              [
-                {
-                  field: 'name',
-                  lable: 'Name',
-                },
-                {
-                  field: 'email',
-                  lable: 'Email Address',
-                  format: (value) => value && value.toUpperCase(),
-                },
-                {
-                  field: 'createdAt',
-                  lable: 'Date',
-                  align: 'right',
-                  format: getDateFormatted,
-                },
-              ]
-            }
+            columns={[
+              {
+                field: 'name',
+                lable: 'Name',
+              },
+              {
+                field: 'email',
+                lable: 'Email Address',
+                format: (value) => value && value.toUpperCase(),
+              },
+              {
+                field: 'createdAt',
+                lable: 'Date',
+                align: 'right',
+                format: getDateFormatted,
+              },
+            ]}
             actions={[
-                {
-                  icon: <EditIcon />,
-                  handler: this.handleEditDialogOpen,
-                },
-                {
-                  icon: <DeleteIcon />,
-                  handler: this.handleRemoveDialogOpen,
-                },
-              ]}
+              {
+                icon: <EditIcon />,
+                handler: this.handleEditDialogOpen,
+              },
+              {
+                icon: <DeleteIcon />,
+                handler: this.handleRemoveDialogOpen,
+              },
+            ]}
             orderBy={orderBy}
             order={order}
             onSort={this.handleSort}
@@ -163,16 +142,13 @@ handleEditDialogOpen = (data) => {
             count={100}
             page={page}
             rowsPerPage={rowsPerPage}
-            onChangePage={this.onChangePage}
+            onChangePage={this.handleChangePage}
           />
-        </div>
-      </>
-    );
-  }
+        </>
+      );
+    }
 }
 TraineeList.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
-
 export default withStyles(useStyles)(TraineeList);

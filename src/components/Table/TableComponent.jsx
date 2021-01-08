@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import {
   Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
-  TableSortLabel, TablePagination,
 } from '@material-ui/core';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Button from '@material-ui/core/Button';
+import TablePagination from '@material-ui/core/TablePagination';
 
 const useStyles = (theme) => ({
   tableContainer: {
@@ -30,8 +31,8 @@ const useStyles = (theme) => ({
 
 function TableComponent(props) {
   const {
-    id, classes, data, column, order, orderBy, onSort, onSelect,
-    actions, count, rowsPerPage, page, onChangePage,
+    id, columns, classes, order, orderBy, onSort, onSelect,
+    actions, data, count, rowsPerPage, page, onChangePage,
   } = props;
 
   return (
@@ -40,7 +41,7 @@ function TableComponent(props) {
         <TableHead>
           <TableRow>
             {
-              column.length && column.map(({
+              columns.length && columns.map(({
                 align, field, lable,
               }) => (
                 <TableCell
@@ -66,7 +67,7 @@ function TableComponent(props) {
           ).map((item) => (
             <TableRow className={classes.tableRow} key={item[id]}>
               {
-                column && column.length && column.map(({ align, field, format }) => (
+                columns && columns.length && columns.map(({ align, field, format }) => (
                   <TableCell onClick={(event) => onSelect(event, item.name)} align={align} component="th" scope="row" order={order} ordery={orderBy}>
                     {format ? format(item[field]) : item[field]}
                   </TableCell>
@@ -93,23 +94,24 @@ function TableComponent(props) {
     </TableContainer>
   );
 }
+
 TableComponent.propTypes = {
   id: PropTypes.string.isRequired,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  column: PropTypes.arrayOf(PropTypes.object).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  actions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   order: PropTypes.string,
   orderBy: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
-  actions: PropTypes.arrayOf(PropTypes.object).isRequired,
   count: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
 };
 TableComponent.defaultProps = {
-  order: '',
+  order: 'asc',
   orderBy: '',
 };
 export default withStyles(useStyles)(TableComponent);
