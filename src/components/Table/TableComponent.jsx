@@ -38,39 +38,28 @@ function TableComponent(props) {
         <TableHead>
           <TableRow>
             {
-              column.length && column.map(({
-                align, field, lable,
-              }) => (
+              column.map(({ align, label }) => (
                 <TableCell
+                  key={label}
+                  className={classes.header}
                   align={align}
-                  className={classes.tableHeader}
                 >
-                  <TableSortLabel
-                    active={orderBy === field}
-                    direction={orderBy === field ? order : 'asc'}
-                    onClick={onSort(field)}
-                  >
-                    {lable}
-                  </TableSortLabel>
+                  {label}
                 </TableCell>
               ))
             }
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-            data && data.length && data.map((item) => (
-              <TableRow className={classes.tableRow}>
-                {
-                  column.length && column.map(({ align, field, format }) => (
-                    <TableCell onClick={(event) => onSelect(event, item.name)} align={align}>
-                      {format ? format(item[field]) : item[field]}
-                    </TableCell>
-                  ))
-                }
-              </TableRow>
-            ))
-          }
+          {data.map((row) => (
+            <TableRow key={row.id}>
+              {
+                column.map(({ field, label, align }) => (
+                  <TableCell key={`${row.id}${label}`} align={align} className={classes.header}>{ row[field]}</TableCell>
+                ))
+              }
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
