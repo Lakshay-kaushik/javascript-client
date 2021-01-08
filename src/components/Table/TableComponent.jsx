@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
-  TableSortLabel,
 } from '@material-ui/core';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const useStyles = (theme) => ({
   tableContainer: {
@@ -29,7 +29,7 @@ const useStyles = (theme) => ({
 
 function TableComponent(props) {
   const {
-    classes, data, column, order, orderBy, onSort,
+    classes, data, column, order, orderBy, onSort, onSelect,
   } = props;
 
   return (
@@ -58,15 +58,19 @@ function TableComponent(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              {
-                column.map(({ field, label, align }) => (
-                  <TableCell key={`${row.id}${label}`} align={align} className={classes.header}>{ row[field]}</TableCell>
-                ))
-              }
-            </TableRow>
-          ))}
+          {
+            data && data.length && data.map((item) => (
+              <TableRow className={classes.tableRow}>
+                {
+                  column.length && column.map(({ align, field, format }) => (
+                    <TableCell onClick={(event) => onSelect(event, item.name)} align={align}>
+                      {format ? format(item[field]) : item[field]}
+                    </TableCell>
+                  ))
+                }
+              </TableRow>
+            ))
+          }
         </TableBody>
       </Table>
     </TableContainer>
@@ -78,6 +82,7 @@ TableComponent.propTypes = {
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
   order: PropTypes.string,
   orderBy: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
 };
 TableComponent.defaultProps = {
