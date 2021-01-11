@@ -3,48 +3,74 @@ import PropTypes from 'prop-types';
 import {
   Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
 } from '@material-ui/core';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
+  tableContainer: {
+    marginLeft: 20,
+    width: '97%',
+  },
   table: {
     minWidth: 650,
   },
-  header: {
+  tableHeader: {
     color: 'grey',
   },
-
+  tableRow: {
+    cursor: 'pointer',
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.grey[100],
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.grey[300],
+    },
+  },
 });
 
 function TableComponent(props) {
-  const { classes, data, column } = props;
+  const {
+    classes, data, column, order, orderBy, onSort, onSelect,
+  } = props;
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.tableContainer}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             {
-              column.map(({ align, label }) => (
+              column.length && column.map(({
+                align, field, lable,
+              }) => (
                 <TableCell
-                  key={label}
-                  className={classes.header}
                   align={align}
+                  className={classes.tableHeader}
                 >
-                  {label}
+                  <TableSortLabel
+                    active={orderBy === field}
+                    direction={orderBy === field ? order : 'asc'}
+                    onClick={onSort(field)}
+                  >
+                    {lable}
+                  </TableSortLabel>
                 </TableCell>
               ))
             }
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              {
-                column.map(({ field, label, align }) => (
-                  <TableCell key={`${row.id}${label}`} align={align} className={classes.header}>{ row[field]}</TableCell>
-                ))
-              }
-            </TableRow>
-          ))}
+          {
+            data && data.length && data.map((item) => (
+              <TableRow className={classes.tableRow}>
+                {
+                  column.length && column.map(({ align, field, format }) => (
+                    <TableCell onClick={(event) => onSelect(event, item.name)} align={align}>
+                      {format ? format(item[field]) : item[field]}
+                    </TableCell>
+                  ))
+                }
+              </TableRow>
+            ))
+          }
         </TableBody>
       </Table>
     </TableContainer>
@@ -54,5 +80,13 @@ TableComponent.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
+  order: PropTypes.string,
+  orderBy: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+};
+TableComponent.defaultProps = {
+  order: '',
+  orderBy: '',
 };
 export default withStyles(useStyles)(TableComponent);
