@@ -12,24 +12,27 @@ import { Trainee } from './pages/Trainee';
 import { TextFieldDemo } from './pages/TextFieldDemo';
 import { NoMatch } from './pages/NoMatch';
 import { AuthRoute, PrivateRoute } from './routes/index';
+import { SnackBarProvider } from './contexts/SnackBarProvider';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/Trainee" />
-          </Route>
-          <PrivateRoute path="/Login" component={Login} />
-          <AuthRoute path="/TextFieldDemo" component={TextFieldDemo} />
-          <AuthRoute path="/ChildrenDemo" component={ChildrenDemo} />
-          <AuthRoute path="/InputDemo" component={InputDemo} />
-          <AuthRoute path="/Trainee" component={Trainee} />
-          <AuthRoute component={NoMatch} />
+      <SnackBarProvider>
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/Trainee" />
+            </Route>
+            <PrivateRoute path="/Login" component={Login} />
+            <AuthRoute path="/TextFieldDemo" component={TextFieldDemo} />
+            <AuthRoute path="/ChildrenDemo" component={ChildrenDemo} />
+            <AuthRoute path="/InputDemo" component={InputDemo} />
+            <AuthRoute path="/Trainee" component={Trainee} />
+            <AuthRoute component={NoMatch} />
 
-        </Switch>
-      </Router>
+          </Switch>
+        </Router>
+      </SnackBarProvider>
     </ThemeProvider>
   );
 }

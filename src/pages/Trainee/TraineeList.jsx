@@ -46,6 +46,10 @@ class TraineeList extends React.Component {
       this.setState({ DeleteOpen: false }, () => { console.log('Deleted Item ', data.data); });
     };
 
+    handleUser = (status, data) => {
+      this.setState({ Open: status }, () => { console.log(data); });
+    };
+
     handleClose = () => {
       this.setState({ Open: false });
     }
