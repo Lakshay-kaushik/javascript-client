@@ -75,9 +75,11 @@ function TableComponent(props) {
               }
               {actions && actions.length && actions.map(({ icon, handler }) => (
                 <TableRow>
-                  <Button onClick={() => handler(item)}>
-                    {icon}
-                  </Button>
+                  <TableRow>
+                    <Button onClick={() => handler(item)}>
+                      {icon}
+                    </Button>
+                  </TableRow>
                 </TableRow>
               ))}
             </TableRow>
