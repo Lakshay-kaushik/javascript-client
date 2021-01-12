@@ -13,7 +13,7 @@ function Trainee(props) {
   );
 }
 Trainee.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object).isRequired,
+  match: PropTypes.string.isRequired,
 };
 
 export default Trainee;
