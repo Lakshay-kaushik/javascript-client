@@ -73,25 +73,31 @@ function TableComponent(props) {
                   </TableCell>
                 ))
               }
-              {actions && actions.length && actions.map(({ icon, handler }) => (
-                <TableRow>
+              <TableCell>
+                {actions && actions.length && actions.map(({ icon, handler }) => (
                   <TableRow>
-                    <Button onClick={() => handler(item)}>
-                      {icon}
-                    </Button>
+                    <TableRow>
+                      <Button onClick={() => handler(item)}>
+                        {icon}
+                      </Button>
+                    </TableRow>
                   </TableRow>
-                </TableRow>
-              ))}
+                ))}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
-        <TablePagination
-          rowsPerPageOptions={0}
-          count={count}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={onChangePage}
-        />
+        {
+          (count === 0) ? '' : (
+            <TablePagination
+              rowsPerPageOptions={[0]}
+              count={count}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={onChangePage}
+            />
+          )
+        }
       </Table>
     </TableContainer>
   );
