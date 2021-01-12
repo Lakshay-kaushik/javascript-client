@@ -23,7 +23,7 @@ class RemoveDialog extends Component {
   };
 
   handleSnackBarMessage = (data, openSnackBar) => {
-    const date = '2019-02-12T18:15:11.778Z';
+    const date = '2019-02-13T18:15:11.778Z';
     const isAfter = (moment(data.createdAt).isAfter(date));
     if (isAfter) {
       this.setState({
