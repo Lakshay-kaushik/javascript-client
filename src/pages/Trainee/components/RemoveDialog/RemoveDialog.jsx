@@ -1,10 +1,13 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
-import moment from 'moment';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
-import { DialogActions, DialogContentText, DialogTitle } from '@material-ui/core';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import { MyContext } from '../../../../contexts';
+import * as moment from 'moment';
+import { MyContext } from '../../../../contexts/index';
 
 class RemoveDialog extends Component {
   constructor(props) {
@@ -13,73 +16,73 @@ class RemoveDialog extends Component {
     };
   }
 
-  handleChange = (prop) => (event) => {
-    // eslint-disable-next-line no-console
-    this.setState({ [prop]: event.target.value }, () => console.log(this.state));
-  };
+handleChange = (prop) => (event) => {
+  this.setState({ [prop]: event.target.value }, () => console.log(this.state));
+};
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+handleClose = () => {
+  this.setState({ open: false });
+};
 
-  handleSnackBarMessage = (data, openSnackBar) => {
-    const date = '2019-02-13T18:15:11.778Z';
-    const isAfter = (moment(data.createdAt).isAfter(date));
-    if (isAfter) {
-      this.setState({
-        message: 'Deleted Trainee Successfully ',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'success');
-      });
-    } else {
-      this.setState({
-        message: 'Error While Deleting Trainee',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'error');
-      });
-    }
+handleSnackBarMessage = (data, openSnackBar) => {
+  const date = '2019-02-13T18:15:11.778Z';
+  const isAfter = (moment(data.createdAt).isAfter(date));
+  console.log(isAfter, data.createdAt);
+  if (isAfter) {
+    this.setState({
+      message: 'Deleted Trainee Successfully ',
+    }, () => {
+      const { message } = this.state;
+      openSnackBar(message, 'success');
+    });
+  } else {
+    this.setState({
+      message: 'Error While Deleting Trainee',
+    }, () => {
+      const { message } = this.state;
+      openSnackBar(message, 'error');
+    });
   }
+}
 
-  render() {
-    const {
-      open, onClose, onSubmit, data,
-    } = this.props;
+render() {
+  const {
+    open, onClose, onSubmit, data,
+  } = this.props;
 
-    return (
-      <Dialog
-        open={open}
-        onClose={() => this.handleClose()}
-        fullWidth
-        maxWidth="md"
-      >
-        <DialogTitle id="form-dialog-title">Remove Trainee</DialogTitle>
-        <DialogContentText style={{ marginLeft: 25 }}>
-          Do you really want to remove the trainee?
-          <DialogActions>
-            <Button onClick={onClose} color="primary">
-              Cancel
-            </Button>
-            <MyContext.Consumer>
-              {({ openSnackBar }) => (
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={() => {
-                    onSubmit({ data });
-                    this.handleSnackBarMessage(data, openSnackBar);
-                  }}
-                >
-                  Delete
-                </Button>
-              )}
-            </MyContext.Consumer>
-          </DialogActions>
-        </DialogContentText>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog
+      open={open}
+      onClose={() => this.handleClose()}
+      fullWidth
+      maxWidth="md"
+    >
+      <DialogTitle id="form-dialog-title">Remove Trainee</DialogTitle>
+      <DialogContentText style={{ marginLeft: 25 }}>
+        Do you really want to remove the trainee?
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            Cancel
+          </Button>
+          <MyContext.Consumer>
+            {({ openSnackBar }) => (
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  onSubmit({ data });
+                  this.handleSnackBarMessage(data, openSnackBar);
+                }}
+              >
+                Delete
+              </Button>
+            )}
+          </MyContext.Consumer>
+        </DialogActions>
+      </DialogContentText>
+    </Dialog>
+  );
+}
 }
 
 RemoveDialog.propTypes = {
