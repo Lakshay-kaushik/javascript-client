@@ -112,7 +112,7 @@ handleRedirect = () => {
      localStorage.get('token');
      console.log('respone', res.data);
      if (res.data ) {
-      window.localStorage.setItem('token', res.data);
+      window.localStorage('token', res.data);
       this.setState({
         redirect: true,
         message: 'Successfully Login!',
