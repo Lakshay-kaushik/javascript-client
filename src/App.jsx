@@ -12,7 +12,7 @@ import { Trainee } from './pages/Trainee';
 import { TextFieldDemo } from './pages/TextFieldDemo';
 import { NoMatch } from './pages/NoMatch';
 import { AuthRoute, PrivateRoute } from './routes/index';
-import { SnackBarProvider } from './contexts/SnackBarProvider';
+import { SnackBarProvider } from './contexts';
 
 function App() {
   return (
@@ -23,12 +23,12 @@ function App() {
             <Route path="/" exact>
               <Redirect to="/Trainee" />
             </Route>
-            <PrivateRoute path="/Login" component={Login} />
-            <AuthRoute path="/TextFieldDemo" component={TextFieldDemo} />
-            <AuthRoute path="/ChildrenDemo" component={ChildrenDemo} />
-            <AuthRoute path="/InputDemo" component={InputDemo} />
-            <AuthRoute path="/Trainee" component={Trainee} />
-            <AuthRoute component={NoMatch} />
+            <AuthRoute path="/Login" component={Login} />
+            <PrivateRoute path="/TextFieldDemo" component={TextFieldDemo} />
+            <PrivateRoute path="/ChildrenDemo" component={ChildrenDemo} />
+            <PrivateRoute path="/InputDemo" component={InputDemo} />
+            <PrivateRoute path="/Trainee" component={Trainee} />
+            <PrivateRoute component={NoMatch} />
 
           </Switch>
         </Router>

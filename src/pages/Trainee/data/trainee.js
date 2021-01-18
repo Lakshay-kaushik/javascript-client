@@ -1,3 +1,4 @@
+/* eslint-disable */
 const trainees = [
   {
     id: '5c6c47af7740654f0915fac9',
