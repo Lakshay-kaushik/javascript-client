@@ -11,7 +11,6 @@ const callApi = async (data, method, url) => {
       url: baseUrl,
       data,
     });
-    localStorage.set('token', response.data);
     const token = localStorage.get('token');
     // eslint-disable-next-line no-console
     console.log('Token:::::', token);

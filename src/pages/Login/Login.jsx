@@ -109,14 +109,14 @@ handleRedirect = () => {
      const res = await callApi(req, 'post', '/user/login');
      console.log('ResponseErr', res)
      this.setState({ loading: false });
-     localStorage.get('token');
      console.log('respone', res.data);
      if (res.data ) {
-      window.localStorage('token', res.data);
+      window.localStorage.setItem('token', res.data);
       this.setState({
         redirect: true,
         message: 'Successfully Login!',
-      }, () => {
+      },
+       () => {
         const { message } = this.state;
         openSnackBar(message, 'success');
       });
