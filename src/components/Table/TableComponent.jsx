@@ -6,6 +6,7 @@ import {
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Button from '@material-ui/core/Button';
 import TablePagination from '@material-ui/core/TablePagination';
+import { hoc } from '../HOC/index';
 
 const useStyles = (theme) => ({
   tableContainer: {
@@ -32,7 +33,7 @@ const useStyles = (theme) => ({
 function TableComponent(props) {
   const {
     id, columns, classes, order, orderBy, onSort, onSelect,
-    actions, data, count, rowsPerPage, page, onChangePage,
+    actions, data, count, rowsPerPage, page, onChangePage, onChangeRowsPerPage,
   } = props;
 
   return (
@@ -61,10 +62,7 @@ function TableComponent(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(rowsPerPage > 0
-            ? data.slice()
-            : data
-          ).map((item) => (
+          {data.map((item) => (
             <TableRow className={classes.tableRow} key={item[id]}>
               {
                 columns && columns.length && columns.map(({ align, field, format }) => (
@@ -95,6 +93,7 @@ function TableComponent(props) {
               rowsPerPage={rowsPerPage}
               page={page}
               onChangePage={onChangePage}
+              onChangeRowsPerPage={onChangeRowsPerPage}
             />
           )
         }
@@ -117,9 +116,10 @@ TableComponent.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  onChangeRowsPerPage: PropTypes.func.isRequired,
 };
 TableComponent.defaultProps = {
   order: 'asc',
   orderBy: '',
 };
-export default withStyles(useStyles)(TableComponent);
+export default withStyles(useStyles)(hoc(TableComponent));
