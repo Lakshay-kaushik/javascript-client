@@ -1,12 +1,15 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, InputAdornment,
-  DialogActions,
+  DialogActions, CircularProgress,
 } from '@material-ui/core';
 import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import localStorage from 'local-storage';
 import * as yup from 'yup';
+import callApi from '../../../../libs/utils/api';
 import { MyContext } from '../../../../contexts';
 
 const passwordStyle = () => ({
@@ -110,12 +113,49 @@ class AddDialog extends React.Component {
     return '';
   }
 
+  onClickHandler = async (data, openSnackBar) => {
+    this.setState({
+      loading: true,
+      hasError: true,
+    });
+    const response = await callApi({ ...data, role: 'trainee' }, 'post', '/trainee');
+    this.setState({ loading: false });
+    const Token = localStorage.get('token');
+    if (!response.err) {
+      this.setState({
+        hasError: false,
+        message: 'This is a successfully added trainee message',
+      }, () => {
+        const { message } = this.state;
+        openSnackBar(message, 'success');
+      });
+    } else {
+      this.setState({
+        hasError: false,
+        message: 'error in submitting',
+      }, () => {
+        const { message } = this.state;
+        openSnackBar(message, 'error');
+      });
+    }
+  }
+
+  formReset = () => {
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      touched: {},
+    });
+  }
+
   render() {
     const {
-      open, onClose, onSubmit, classes,
+      open, onClose, classes,
     } = this.props;
     const {
-      name, email, password, confirmPassword,
+      name, email, password, loading,
     } = this.state;
     const ans = [];
     config.forEach((value) => {
@@ -179,14 +219,17 @@ class AddDialog extends React.Component {
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                      onSubmit({
-                        name, email, password, confirmPassword,
-                      });
-                      openSnackBar('Trainee added successfully! ', 'success');
+                      this.onClickHandler({
+                        name, email, password,
+                      }, openSnackBar);
+                      this.formReset();
                     }}
-                    disabled={this.hasErrors()}
                   >
-                    Submit
+                    {loading && (
+                      <CircularProgress size={15} />
+                    )}
+                    {loading && <span>Submitting</span>}
+                    {!loading && <span>Submit</span>}
                   </Button>
                 )}
               </MyContext.Consumer>
@@ -201,7 +244,6 @@ export default withStyles(passwordStyle)(AddDialog);
 AddDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 TextField.propTypes = {

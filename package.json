@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "editorconfig": "^0.15.3",
+    "jsonwebtoken": "^8.5.1",
     "linting": "^1.0.0",
     "local-storage": "^2.0.0",
     "moment": "^2.29.1",

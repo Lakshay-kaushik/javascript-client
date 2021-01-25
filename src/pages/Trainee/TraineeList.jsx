@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -7,7 +7,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, RemoveDialog } from './components/index';
 import { TableComponent } from '../../components/Table';
-import trainees from './data/trainee';
+// import trainees from './data/trainee';
+import callApi from '../../libs/utils/api';
 import { getDateFormatted } from '../../libs/utils/getDateFormatted';
 
 const useStyles = (theme) => ({
@@ -35,6 +36,9 @@ class TraineeList extends React.Component {
       rowsPerPage: 10,
       editData: {},
       deleteData: {},
+      items: [],
+      count: 0,
+      isLoaded: false,
     };
   }
 
@@ -77,14 +81,44 @@ class TraineeList extends React.Component {
     handleChangePage = (event, newPage) => {
       this.setState({
         page: newPage,
-      });
+      
+    },this.traineedata);
     };
+
+    traineedata = () =>{
+        const { page, rowsPerPage, } = this.state;
+        this.setState({ isLoaded: true });  
+        const value = this.context;
+        console.log('val :', value);
+        // eslint-disable-next-line consistent-return
+        callApi({}, 'get', `/trainee?skip=${page*rowsPerPage}&limit=${rowsPerPage}`).then((response) => {
+          console.log('response compo', response);
+          if (response.data === undefined) {
+            this.setState({
+              isLoaded: false,
+            }, () => {
+            });
+          } else {
+            console.log('res inside traineelist :', response);
+            const data = response.data;
+            console.log('records are :', data);
+            this.setState({ items: data.records, isLoaded: false, count: data.count });
+            return response;
+          }
+        });
+    }
+
+    componentDidMount = () => {
+        this.traineedata();
+    }
 
     render() {
       const {
         EditOpen, Open, order, orderBy, page, rowsPerPage, editData, DeleteOpen, deleteData,
+        items, isLoaded, count,
       } = this.state;
       const { classes } = this.props;
+      console.log('items', items);
       return (
         <>
           <div className={classes.dialog}>
@@ -111,7 +145,7 @@ class TraineeList extends React.Component {
           />
           <TableComponent
             id="id"
-            data={trainees}
+            data={items}
             columns={[
               {
                 field: 'name',
@@ -143,7 +177,7 @@ class TraineeList extends React.Component {
             order={order}
             onSort={this.handleSort}
             onSelect={this.handleSelect}
-            count={100}
+            count={count}
             page={page}
             rowsPerPage={rowsPerPage}
             onChangePage={this.handleChangePage}
@@ -152,6 +186,7 @@ class TraineeList extends React.Component {
       );
     }
 }
+
 TraineeList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
