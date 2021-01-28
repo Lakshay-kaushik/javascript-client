@@ -109,9 +109,9 @@ class EditDialog extends Component {
       dataToUpdate: Data,
     };
     const response = await callApi(dataToUpdate, 'put', 'trainee');
-    console.log(response);
+    console.log('Edit response', response);
     this.setState({ loading: false });
-    if (response && response.status === 'success') {
+    if (response && response.status === 'ok') {
       this.setState({
         message: 'Trainee Updated Successfully',
       }, () => {
