@@ -43,7 +43,7 @@ class TraineeList extends React.Component {
   }
 
     handleEditButton = (data) => {
-      this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data.data); });
+      this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data); });
     }
 
     handleDeleteButton = (data) => {
@@ -119,6 +119,7 @@ class TraineeList extends React.Component {
       } = this.state;
       const { classes } = this.props;
       console.log('items', items);
+      console.log('deleted data:',deleteData)
       return (
         <>
           <div className={classes.dialog}>
