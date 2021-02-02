@@ -141,9 +141,9 @@ class EditDialog extends Component {
 
   render() {
     const {
-      classes, open, onClose, data, email, name,
+      classes, open, onClose, data, email, password
     } = this.props;
-    const { loading } = this.state;
+    const { name, loading } = this.state;
     const { originalId } = data;
     return (
       <Dialog
@@ -234,6 +234,6 @@ EditDialog.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
   email: PropTypes.objectOf(PropTypes.string).isRequired,
-  name: PropTypes.objectOf(PropTypes.string).isRequired,
+  password: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 export default withStyles(useStyles)(EditDialog);
