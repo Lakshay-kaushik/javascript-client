@@ -109,6 +109,7 @@ class EditDialog extends Component {
       dataToUpdate: Data,
     };
     const response = await callApi(dataToUpdate, 'put', 'trainee');
+    this.formReset();
     console.log('Edit response', response);
     this.setState({ loading: false });
     if (response && response.status === 'ok') {
@@ -157,7 +158,7 @@ class EditDialog extends Component {
           </DialogContentText>
           <TextField
             label="Name *"
-            type="name"
+            type="text"
             autoComplete="off"
             fullWidth
             defaultValue={data.name}
@@ -207,7 +208,6 @@ class EditDialog extends Component {
               <Button
                 onClick={() => {
                   this.onEditHandler({ name, email, originalId }, openSnackBar);
-                  this.formReset();
                 }}
                 disabled={this.hasErrors()}
                 color="primary"
