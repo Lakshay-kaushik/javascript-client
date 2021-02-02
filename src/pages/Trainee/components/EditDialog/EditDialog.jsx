@@ -1,3 +1,4 @@
+/* eslint-disable*/ 
 import React, { Component } from 'react';
 import {
   TextField, Button, Dialog, DialogTitle,
@@ -140,9 +141,9 @@ class EditDialog extends Component {
 
   render() {
     const {
-      classes, open, onClose, data,
+      classes, open, onClose, data, email, name,
     } = this.props;
-    const { name, email, loading } = this.state;
+    const { loading } = this.state;
     const { originalId } = data;
     return (
       <Dialog
@@ -232,5 +233,7 @@ EditDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
+  email: PropTypes.objectOf(PropTypes.string).isRequired,
+  name: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 export default withStyles(useStyles)(EditDialog);
