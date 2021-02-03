@@ -43,6 +43,14 @@ class EditDialog extends Component {
       },
     };
   }
+  handleSet = () => {
+    console.log('--handleSet--');
+    const { data } = this.props;
+    this.setState({
+        name: data.name,
+        email: data.email,
+    });
+    };
 
   handleBlur = (field) => {
     const { touched } = this.state;
@@ -150,6 +158,7 @@ class EditDialog extends Component {
       <Dialog
         open={open}
         onClose={onClose}
+        onMouseEnter={this.handleSet}
         fullWidth
         maxWidth="md"
       >
