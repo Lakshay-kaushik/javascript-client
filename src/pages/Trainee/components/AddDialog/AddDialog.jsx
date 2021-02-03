@@ -118,6 +118,7 @@ class AddDialog extends React.Component {
       loading: true,
       hasError: true,
     });
+    const { databs } = this.props;
     const response = await callApi({ ...data, role: 'trainee' }, 'post', '/trainee');
     this.setState({ loading: false });
     const Token = localStorage.get('token');
@@ -128,6 +129,7 @@ class AddDialog extends React.Component {
       }, () => {
         const { message } = this.state;
         openSnackBar(message, 'success');
+        databs();
       });
     } else {
       this.setState({

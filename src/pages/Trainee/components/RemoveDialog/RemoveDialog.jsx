@@ -29,7 +29,7 @@ onDeleteHandler = async (data, openSnackBar) => {
   this.setState({
     loading: true,
   });
-  const { onSubmit } = this.props;
+  const { onSubmit, database } = this.props;
   const { originalId } = data.data;
   const response = await callApi({ }, 'delete', `trainee/${originalId}`);
   console.log('response of deleted item:', response);
@@ -41,6 +41,7 @@ onDeleteHandler = async (data, openSnackBar) => {
       const { message } = this.state;
       onSubmit(data);
       openSnackBar(message, 'success');
+      database();
     });
   } else {
     this.setState({
@@ -101,5 +102,6 @@ RemoveDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
+  database: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 export default RemoveDialog;

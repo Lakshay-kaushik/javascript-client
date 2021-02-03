@@ -13,7 +13,7 @@ import { MyContext } from '../../../../contexts';
 import callApi from '../../../../libs/utils/api';
 
 const schema = yup.object().shape({
-  name: yup.string().trim().required('Name is required field'),
+  name: yup.string().trim().required('Name is required field').min(3),
   email: yup.string().trim().required('Email Address is required field').email(),
 });
 
@@ -102,7 +102,7 @@ class EditDialog extends Component {
 
   onEditHandler = async (Data, openSnackBar) => {
     console.log('edited data:', Data);
-    const { onSubmit } = this.props;
+    const { onSubmit, dtbs } = this.props;
     this.setState({
       loading: true,
     });
@@ -120,6 +120,7 @@ class EditDialog extends Component {
         const { message } = this.state;
         onSubmit(Data);
         openSnackBar(message, 'success');
+        dtbs();
       });
     } else {
       this.setState({

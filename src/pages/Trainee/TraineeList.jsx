@@ -130,6 +130,7 @@ class TraineeList extends React.Component {
               onClose={this.handleClose}
               open={Open}
               onSubmit={this.handleUser}
+              databs={this.traineedata}
             />
           </div>
           <EditDialog
@@ -137,12 +138,14 @@ class TraineeList extends React.Component {
             open={EditOpen}
             onSubmit={this.handleEditButton}
             data={editData}
+            dtbs={this.traineedata}
           />
           <RemoveDialog
             data={deleteData}
             onClose={this.handleDeleteButton}
             onSubmit={this.handleDeleteButton}
             open={DeleteOpen}
+            database={this.traineedata}
           />
           <TableComponent
             id="id"
