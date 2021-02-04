@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
-import * as moment from 'moment';
 import { MyContext } from '../../../../contexts/index';
+import callApi from '../../../../libs/utils/api';
 
 class RemoveDialog extends Component {
   constructor(props) {
@@ -24,16 +25,23 @@ handleClose = () => {
   this.setState({ open: false });
 };
 
-handleSnackBarMessage = (data, openSnackBar) => {
-  const date = '2019-02-13T18:15:11.778Z';
-  const isAfter = (moment(data.createdAt).isAfter(date));
-  console.log(isAfter, data.createdAt);
-  if (isAfter) {
+onDeleteHandler = async (data, openSnackBar) => {
+  this.setState({
+    loading: true,
+  });
+  const { onSubmit, database } = this.props;
+  const { originalId } = data.data;
+  const response = await callApi({ }, 'delete', `trainee/${originalId}`);
+  console.log('response of deleted item:', response);
+  this.setState({ loading: false });
+  if (response.code === 200) {
     this.setState({
-      message: 'Deleted Trainee Successfully ',
+      message: response.message,
     }, () => {
       const { message } = this.state;
+      onSubmit(data);
       openSnackBar(message, 'success');
+      database();
     });
   } else {
     this.setState({
@@ -47,8 +55,9 @@ handleSnackBarMessage = (data, openSnackBar) => {
 
 render() {
   const {
-    open, onClose, onSubmit, data,
+    open, onClose, data,
   } = this.props;
+  const { loading } = this.state;
 
   return (
     <Dialog
@@ -70,11 +79,14 @@ render() {
                 color="primary"
                 variant="contained"
                 onClick={() => {
-                  onSubmit({ data });
-                  this.handleSnackBarMessage(data, openSnackBar);
+                  this.onDeleteHandler({ data }, openSnackBar);
                 }}
               >
-                Delete
+                {loading && (
+                  <CircularProgress size={15} />
+                )}
+                {loading && <span>Deleting</span>}
+                {!loading && <span>Delete</span>}
               </Button>
             )}
           </MyContext.Consumer>
@@ -90,5 +102,6 @@ RemoveDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
+  database: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 export default RemoveDialog;

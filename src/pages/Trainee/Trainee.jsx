@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TraineeList from './TraineeList';
@@ -13,7 +14,7 @@ function Trainee(props) {
   );
 }
 Trainee.propTypes = {
-  match: PropTypes.string.isRequired,
+  match: PropTypes.any.isRequired,
 };
 
 export default Trainee;

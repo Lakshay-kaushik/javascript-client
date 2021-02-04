@@ -43,7 +43,7 @@ class TraineeList extends React.Component {
   }
 
     handleEditButton = (data) => {
-      this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data.data); });
+      this.setState({ EditOpen: false }, () => { console.log('Edited Item ', data); });
     }
 
     handleDeleteButton = (data) => {
@@ -119,6 +119,7 @@ class TraineeList extends React.Component {
       } = this.state;
       const { classes } = this.props;
       console.log('items', items);
+      console.log('deleted data:',deleteData)
       return (
         <>
           <div className={classes.dialog}>
@@ -129,6 +130,7 @@ class TraineeList extends React.Component {
               onClose={this.handleClose}
               open={Open}
               onSubmit={this.handleUser}
+              databs={this.traineedata}
             />
           </div>
           <EditDialog
@@ -136,12 +138,14 @@ class TraineeList extends React.Component {
             open={EditOpen}
             onSubmit={this.handleEditButton}
             data={editData}
+            dtbs={this.traineedata}
           />
           <RemoveDialog
             data={deleteData}
             onClose={this.handleDeleteButton}
             onSubmit={this.handleDeleteButton}
             open={DeleteOpen}
+            database={this.traineedata}
           />
           <TableComponent
             id="id"
