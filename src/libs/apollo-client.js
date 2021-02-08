@@ -9,6 +9,7 @@ const cache = new InMemoryCache();
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('token');
+  // const token = JSON.parse(localStorage.getItem('token'))
   return {
     headers: {
       ...headers,
