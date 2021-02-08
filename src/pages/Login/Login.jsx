@@ -10,7 +10,6 @@ import {
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
 import localStorage from 'local-storage';
 import { Redirect } from 'react-router-dom';
-import callApi from '../../libs/utils/api';
 import { MyContext } from '../../contexts';
 
 const Design = (theme) => ({
@@ -69,6 +68,8 @@ hasErrors = () => {
 
 // eslint-disable-next-line consistent-return
 getError = (field) => {
+  const { email, password } = this.state;
+  const data ={ email: `${email}`, password: `${password}` }
   const { touched } = this.state;
   if (touched[field] && this.hasErrors()) {
     try {
@@ -98,7 +99,12 @@ handleRedirect = () => {
 }
 
   onClickHandler = async (data, openSnackBar) => {
+    const { loginUser } = this.props;
+    const { email, password } = data;
     console.log('Data is :', data);
+    console.log('loginUser:', loginUser);
+    console.log('email===>', email);
+    console.log('password==>', password);
     this.setState({
       loading: true,
       hasError: true,
@@ -106,12 +112,13 @@ handleRedirect = () => {
     try{
      const req={ email: data.email.trim(), password: data.password.trim() };
      console.log("req",req);
-     const res = await callApi(req, 'post', '/user/login');
+     const res = await loginUser({ variables: req  })
+     console.log('res ===',res.data.loginUser);
+     window.localStorage.setItem('token', res.data.loginUser);
      console.log('ResponseErr', res)
      this.setState({ loading: false });
      console.log('respone', res.data);
      if (res.data ) {
-      window.localStorage.setItem('token', res.data);
       this.setState({
         redirect: true,
         message: 'Successfully Login!',
@@ -153,11 +160,11 @@ handleRedirect = () => {
               <form>
                 <div>
                   <TextField
-                    required
+                    required  
                     fullWidth
                     id="outlined-required"
                     label="Email Address"
-                    defaultValue=" "
+                    defaultValue=""
                     variant="outlined"
                     helperText={this.getError('email')}
                     error={!!this.getError('email')}
