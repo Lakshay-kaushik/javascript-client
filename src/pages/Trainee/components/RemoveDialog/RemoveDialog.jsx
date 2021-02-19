@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import React, { Component } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
 import { MyContext } from '../../../../contexts/index';
-import callApi from '../../../../libs/utils/api';
+// import callApi from '../../../../libs/utils/api';
 
 class RemoveDialog extends Component {
   constructor(props) {
@@ -25,40 +25,12 @@ handleClose = () => {
   this.setState({ open: false });
 };
 
-onDeleteHandler = async (data, openSnackBar) => {
-  this.setState({
-    loading: true,
-  });
-  const { onSubmit, database } = this.props;
-  const { originalId } = data.data;
-  const response = await callApi({ }, 'delete', `trainee/${originalId}`);
-  console.log('response of deleted item:', response);
-  this.setState({ loading: false });
-  if (response.code === 200) {
-    this.setState({
-      message: response.message,
-    }, () => {
-      const { message } = this.state;
-      onSubmit(data);
-      openSnackBar(message, 'success');
-      database();
-    });
-  } else {
-    this.setState({
-      message: 'Error While Deleting Trainee',
-    }, () => {
-      const { message } = this.state;
-      openSnackBar(message, 'error');
-    });
-  }
-}
-
 render() {
   const {
     open, onClose, data,
   } = this.props;
   const { loading } = this.state;
-
+  const { originalId } = data;
   return (
     <Dialog
       open={open}
@@ -79,7 +51,7 @@ render() {
                 color="primary"
                 variant="contained"
                 onClick={() => {
-                  this.onDeleteHandler({ data }, openSnackBar);
+                  this.onSubmit({ originalId });
                 }}
               >
                 {loading && (

@@ -9,7 +9,7 @@ import { Email, VisibilityOff, Person } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import localStorage from 'local-storage';
 import * as yup from 'yup';
-import callApi from '../../../../libs/utils/api';
+// import callApi from '../../../../libs/utils/api';
 import { MyContext } from '../../../../contexts';
 
 const passwordStyle = () => ({
@@ -113,35 +113,7 @@ class AddDialog extends React.Component {
     return '';
   }
 
-  onClickHandler = async (data, openSnackBar) => {
-    this.setState({
-      loading: true,
-      hasError: true,
-    });
-    const { databs } = this.props;
-    const response = await callApi({ ...data, role: 'trainee' }, 'post', '/trainee');
-    this.setState({ loading: false });
-    const Token = localStorage.get('token');
-    if (!response.err) {
-      this.setState({
-        hasError: false,
-        message: 'This is a successfully added trainee message',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'success');
-        databs();
-      });
-    } else {
-      this.setState({
-        hasError: false,
-        message: 'error in submitting',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'error');
-      });
-    }
-  }
-
+  
   formReset = () => {
     this.setState({
       name: '',
@@ -154,7 +126,7 @@ class AddDialog extends React.Component {
 
   render() {
     const {
-      open, onClose, classes,
+      open, onClose, classes, onSubmit
     } = this.props;
     const {
       name, email, password, loading,
@@ -221,9 +193,9 @@ class AddDialog extends React.Component {
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                      this.onClickHandler({
+                      onSubmit({
                         name, email, password,
-                      }, openSnackBar);
+                      });
                       this.formReset();
                     }}
                   >
