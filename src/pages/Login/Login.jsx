@@ -100,6 +100,7 @@ handleRedirect = () => {
 
   onClickHandler = async (data, openSnackBar) => {
     const { loginUser } = this.props;
+    console.log('--IN--',this.props);
     const { email, password } = data;
     console.log('Data is :', data);
     console.log('loginUser:', loginUser);

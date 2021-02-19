@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { MyContext } from '../../../../contexts';
-import callApi from '../../../../libs/utils/api';
+// import callApi from '../../../../libs/utils/api';
 
 const schema = yup.object().shape({
   name: yup.string().trim().required('Name is required field').min(3),
@@ -108,38 +108,6 @@ class EditDialog extends Component {
     return error[field];
   }
 
-  onEditHandler = async (Data, openSnackBar) => {
-    console.log('edited data:', Data);
-    const { onSubmit, dtbs } = this.props;
-    this.setState({
-      loading: true,
-    });
-    const dataToUpdate = {
-      dataToUpdate: Data,
-    };
-    const response = await callApi(dataToUpdate, 'put', 'trainee');
-    this.formReset();
-    console.log('Edit response', response);
-    this.setState({ loading: false });
-    if (response && response.status === 'ok') {
-      this.setState({
-        message: 'Trainee Updated Successfully',
-      }, () => {
-        const { message } = this.state;
-        onSubmit(Data);
-        openSnackBar(message, 'success');
-        dtbs();
-      });
-    } else {
-      this.setState({
-        message: 'Error while submitting',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'error');
-      });
-    }
-  }
-
   formReset = () => {
     this.setState({
       name: '',
@@ -150,7 +118,7 @@ class EditDialog extends Component {
 
   render() {
     const {
-      classes, open, onClose, data,
+      classes, open, onClose, data, onSubmit
     } = this.props;
     const {  email, name, loading } = this.state;
     const { originalId } = data;
@@ -218,7 +186,7 @@ class EditDialog extends Component {
             {({ openSnackBar }) => (
               <Button
                 onClick={() => {
-                  this.onEditHandler({ name, email, originalId }, openSnackBar);
+                  onSubmit({ name, email, originalId });
                 }}
                 disabled={this.hasErrors()}
                 color="primary"
